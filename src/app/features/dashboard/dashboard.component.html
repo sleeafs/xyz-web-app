@@ -1,0 +1,58 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>{{ title }}</h2>
+
+    <div class="controls">
+      <div class="filter-control">
+        <label for="userFilter">Filter:</label>
+        <select id="userFilter" [(ngModel)]="selectedFilter" (change)="onFilterChange(selectedFilter)">
+          <option *ngFor="let option of filterOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    Loading dashboard data...
+  </div>
+
+  <div class="users-grid" *ngIf="!loading">
+    <div class="user-card" *ngFor="let user of filteredUsers" [ngClass]="getUserPerformanceClass(user.performanceScore)">
+      <div class="user-header">
+        <h3>{{ user.name }}</h3>
+        <span class="user-role">{{ user.role }}</span>
+      </div>
+
+      <div class="user-info">
+        <p><strong>Department:</strong> {{ user.department }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Status:</strong> <span class="status-badge" [class.active]="user.status === 'active'">{{ user.status }}</span></p>
+      </div>
+
+      <div class="user-stats">
+        <div class="stat">
+          <span class="stat-label">Tasks Completed</span>
+          <span class="stat-value">{{ user.tasksCompleted }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">In Progress</span>
+          <span class="stat-value">{{ user.tasksInProgress }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Failed</span>
+          <span class="stat-value">{{ user.tasksFailed }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Performance Score</span>
+          <span class="stat-value performance-score">{{ user.performanceScore }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-results" *ngIf="!loading && filteredUsers.length === 0">
+    No users found for the selected filter.
+  </div>
+</div>

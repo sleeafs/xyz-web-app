@@ -1,0 +1,60 @@
+<div class="task-manager">
+  <h2>Task Manager</h2>
+
+  <!-- Filter section -->
+  <div class="filters">
+    <select [(ngModel)]="selectedUserId" (change)="onUserChange()">
+      <option value="">All Users</option>
+      <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+    </select>
+
+    <select [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+      <option value="">All Status</option>
+      <option value="pending">Pending</option>
+      <option value="in-progress">In Progress</option>
+      <option value="completed">Completed</option>
+      <option value="failed">Failed</option>
+    </select>
+
+    <select [(ngModel)]="selectedPriority" (change)="onPriorityChange()">
+      <option value="">All Priorities</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  <!-- Task statistics -->
+  <!-- CODE SMELL: Method calls in template - performance issue -->
+  <div class="stats">
+    <div class="stat">Total: {{ filteredTasks.length }}</div>
+    <div class="stat">Pending: {{ countByStatus('pending') }}</div>
+    <div class="stat">In Progress: {{ countByStatus('in-progress') }}</div>
+    <div class="stat">Completed: {{ countByStatus('completed') }}</div>
+    <div class="stat">Failed: {{ countByStatus('failed') }}</div>
+  </div>
+
+  <!-- Task list -->
+  <div class="task-list">
+    <div *ngFor="let task of filteredTasks"
+         class="task-card"
+         [ngClass]="getTaskClass(task)">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+
+      <!-- CODE SMELL: Method call in template loop -->
+      <p>Assigned to: {{ getUserName(task.userId) }}</p>
+
+      <p>Status: {{ task.status }}</p>
+      <p>Priority: {{ task.priority }}</p>
+
+      <!-- CODE SMELL: Method call for formatting -->
+      <p>Due: {{ formatDate(task.dueDate) }}</p>
+
+      <!-- CODE SMELL: Complex inline expression with method call -->
+      <p [style.color]="isOverdue(task) ? 'red' : 'green'">
+        {{ isOverdue(task) ? 'OVERDUE!' : 'On track' }}
+      </p>
+    </div>
+  </div>
+</div>

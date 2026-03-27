@@ -1,0 +1,23 @@
+<!-- CODE SMELL: Complex inline expressions and business logic in template -->
+<div class="user-list-container">
+  <div *ngFor="let user of users" class="user-row">
+    <div class="user-info">
+      <!-- CODE SMELL: Complex inline expressions -->
+      <span class="user-name" [style.color]="user.status === 'active' ? 'green' : 'red'">
+        {{ user.name.toUpperCase() }}
+      </span>
+      <span class="user-email">{{ user.email }}</span>
+
+      <!-- CODE SMELL: Business logic in template -->
+      <span class="user-badge badge-admin" *ngIf="user.role === 'admin'">ADMIN</span>
+      <span class="user-badge badge-manager" *ngIf="user.role === 'manager'">MANAGER</span>
+      <span class="user-badge badge-user" *ngIf="user.role === 'user'">USER</span>
+    </div>
+
+    <div class="user-actions">
+      <button (click)="onEdit(user)" [disabled]="!canEdit(user)">Edit</button>
+      <button (click)="onDelete(user)" [disabled]="!canDelete(user)">Delete</button>
+      <button (click)="onViewDetails(user)">View</button>
+    </div>
+  </div>
+</div>
