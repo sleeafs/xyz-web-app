@@ -2,8 +2,8 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { UserService } from './services/user.service';
-import { DataService } from './services/data.service';
+import { UserService } from './services/user/user.service';
+import { DataService } from './services/data/data.service';
 
 @NgModule({
   imports: [

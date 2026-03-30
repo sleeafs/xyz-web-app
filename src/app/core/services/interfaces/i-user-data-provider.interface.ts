@@ -1,18 +1,16 @@
 /**
- * Comprehensive interface for user data operations
+ * Interface for user data operations
  * Provides methods for retrieving, filtering, searching, and managing users, tasks, and departments
- *
- * Note: getUsers() and getTasks() return Promises to simulate async HTTP requests
  */
 export interface IUserDataProvider {
-  
-  // Async user retrieval methods (simulates HTTP requests)
-  getUsers(): Promise<any[]>;
+
+  // User retrieval methods
+  getUsers(): any[];
   getUserById(id: number): any;
   getUserByEmail(email: string): any;
 
-  // Async task retrieval methods (simulates HTTP requests)
-  getTasks(): Promise<any[]>;
+  // Task retrieval methods
+  getTasks(): any[];
   getTaskById(id: number): any;
   getTasksByUserId(userId: number): any[];
 

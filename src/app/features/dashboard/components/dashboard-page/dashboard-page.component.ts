@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../core/services/user.service';
-import { DataService } from '../../core/services/data.service';
+import { UserService } from '../../../../core/services/user/user.service';
+import { DataService } from '../../../../core/services/data/data.service';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  templateUrl: './dashboard-page.component.html',
+  styleUrls: ['./dashboard-page.component.css'],
   standalone: false
 })
 export class DashboardComponent implements OnInit {
@@ -20,8 +20,7 @@ export class DashboardComponent implements OnInit {
     { value: 'active', label: 'Active Users' },
     { value: 'inactive', label: 'Inactive Users' },
     { value: 'admin', label: 'Admins' },
-    { value: 'manager', label: 'Managers' },
-    { value: 'highPerformer', label: 'High Performers' }
+    { value: 'manager', label: 'Managers' }
   ];
 
   constructor(
@@ -34,19 +33,9 @@ export class DashboardComponent implements OnInit {
 
   loadDashboardData() {
     this.loading = true;
-    setTimeout(() => {
-      try {
-        this.usersWithStats = this.userService.doStuff();
-        this.filteredUsers = [...this.usersWithStats];
-        console.log('📊 Dashboard loaded:', this.usersWithStats.length, 'users');
-      } catch (error) {
-        console.error('❌ Error loading dashboard:', error);
-        this.usersWithStats = [];
-        this.filteredUsers = [];
-      } finally {
-        this.loading = false;
-      }
-    }, 100);
+    this.usersWithStats = this.userService.doIt();
+    this.filteredUsers = [...this.usersWithStats];
+    this.loading = false;
   }
 
   onFilterChange(filterValue: string) {
@@ -55,7 +44,7 @@ export class DashboardComponent implements OnInit {
     if (filterValue === 'all') {
       this.filteredUsers = this.usersWithStats;
     } else {
-      this.filteredUsers = this.userService.filter(filterValue);
+      this.filteredUsers = this.userService.filterUsers(filterValue);
 
       // Map back to include performance scores from original data
       this.filteredUsers = this.filteredUsers.map(user => {

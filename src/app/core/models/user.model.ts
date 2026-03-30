@@ -7,9 +7,10 @@ export interface User {
   department: string;
   joinDate: Date;
   salary: number;
-  tasksCompleted: number;
-  tasksInProgress: number;
-  tasksFailed: number;
+  tasksCompleted?: number;
+  tasksInProgress?: number;
+  tasksFailed?: number;
+  performanceScore?: number;
 }
 
 export interface Task {
