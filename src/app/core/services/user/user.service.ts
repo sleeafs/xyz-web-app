@@ -9,11 +9,13 @@ import { User, Task } from '../../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-
+  
+   // Constructor with Dependency Injection
   constructor(private dataService: DataService) {}
 
   /**
-   * Gets users with their task statistics
+   * Retrieves users enriched with task statistics and performance scores
+   * @returns Array of users with calculated metrics
    */
   doIt() {
     const u = this.dataService.getUsers();
@@ -67,10 +69,12 @@ export class UserService {
   }
 
   /**
-   * Filters users by type
+   * Filters users by specified criteria
+   * @param filterType - Type of filter to apply
+   * @returns Filtered array of users with statistics
    */
   filterUsers(filterType: string) {
-    const u = this.dataService.getUsers();
+    const u = this.doIt();
     const r = [];
 
     if (filterType === 'active') {

@@ -135,8 +135,8 @@ export class DataService implements IUserDataProvider {
       { id: 8, name: 'Fiona Green', email: 'fiona@example.com', role: 'manager', status: 'active', department: 'Sales', joinDate: new Date('2019-12-10'), salary: 105000 },
     ];
   }
-  
 
+  //Mock Data. No refactoring needed for exercise.
   /**
    * Generates mock tasks matching user statistics
    */
@@ -196,7 +196,8 @@ export class DataService implements IUserDataProvider {
       { id: 37, userId: 8, title: 'Revenue forecast', description: 'Completed task', status: 'completed', priority: 'high', dueDate: new Date('2026-03-15'), createdAt: new Date('2026-03-01') },
     ];
   }
-
+  
+  //Mock Data. No refactoring needed for exercise.
   /**
    * Generates mock departments
    */
