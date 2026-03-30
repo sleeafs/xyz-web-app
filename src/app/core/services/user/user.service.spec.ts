@@ -15,5 +15,19 @@ describe('UserService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  
+
+  it('should return users', () => {
+    const result = service.doIt();
+    expect(result).toBeDefined();
+  });
+
+  it('should filter active users', () => {
+    const result = service.filterUsers('active');
+    expect(result.length).toBeGreaterThan(0);
+  });
+
+  it('should filter admin users', () => {
+    const result = service.filterUsers('admin');
+    expect(result.length).toBe(1);
+  });
 });
